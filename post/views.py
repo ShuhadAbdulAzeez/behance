@@ -5,3 +5,8 @@ def home(request):
     post = Post.objects.all()
     context = {'post' :post}
     return render(request, 'index.html', context)
+
+def post_description(request, pk):
+    post = Post.objects.get(id=pk)
+    context = {'post':post}
+    return render(request, 'postdesc.html', context)

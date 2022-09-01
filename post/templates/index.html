@@ -46,11 +46,11 @@
             <!-- First Project Card -->
             {% for p in post %}
             <div class="projects">
-                <a href="/gallery/project1324652.html"><img src="{{p.cover.url}}" alt=""></a>
+                <a href="{% url 'postdesc' p.id %}"><img src="{{p.cover.url}}" alt=""></a>
                 <div class="projects-info">
                     <div class="user">
-                        <img src="{% static 'images/users/user1.jpg' %}" alt="">
-                        <a href="/user/jordan-dice.html"><p>Jordan Dice</p></a>
+                        <img src="{% static 'images/users/user.jpg' %}" alt="">
+                        <a href="/user/jordan-dice.html"><p>{{p.title}}</p></a>
                     </div>
                     <div class="photo-stats">
                         <p><i class="fas fa-thumbs-up"></i>425</p>
