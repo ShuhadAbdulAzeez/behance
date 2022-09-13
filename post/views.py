@@ -4,9 +4,8 @@ from . models import Post
 
 def home(request):
     post = Post.objects.all()
-    print(post)
     context = {'post' :post}
-    return render(request, 'query.html', context)
+    return render(request, 'index.html', context)
 
 def post_description(request, pk):
     post = Post.objects.get(id=pk)
