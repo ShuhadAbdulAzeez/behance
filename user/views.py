@@ -1,7 +1,11 @@
-from multiprocessing import context
+
 from django.shortcuts import render,redirect
 from . forms import CustomCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login,authenticate,logout
+from django.contrib.auth.models import User
+from django.contrib.auth import login as auth_login
+
+# Sign up
 
 def registerUser(request):
     form = CustomCreationForm()
@@ -24,5 +28,36 @@ def registerUser(request):
     context = {'form': form}
     
     return render(request, 'signup.html', context)
+
+# login
+
+def login(request):
+    if request.user.is_authenticated:
+        return redirect("home")
+    
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        
+        try:
+            user = User.objects.get(username=username)
+        except:
+            print("no user found")
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            auth_login(request, user)
+            return redirect("home")
+        
+        else:
+            print("user not found")
+            
+    return render(request, 'login.html')
+
+# logout
+
+def logoutUser(request):
+    logout(request)
+    return redirect ("home")
         
     
