@@ -20,7 +20,7 @@ def registerUser(request):
             
             print("login successful")
             
-            login(request, user)
+            auth_login(request, user)
             return redirect("home")
         else:
             print("login unsuccessful")
