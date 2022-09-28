@@ -2,8 +2,10 @@ from distutils.command.upload import upload
 from email.mime import image
 from turtle import title
 from django.db import models
+from user.models import Profile
 
 class Post(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True)
     title = models.CharField(max_length=150)
     cover = models.ImageField(upload_to = "media", null = True, blank = True)
     tags = models.ManyToManyField('Tag',blank=True)

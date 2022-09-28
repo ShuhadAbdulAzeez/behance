@@ -1,4 +1,5 @@
 from multiprocessing import context
+import profile
 from turtle import title
 from django.shortcuts import render, redirect
 from . models import Post
@@ -16,12 +17,14 @@ def post_description(request, pk):
     return render(request, 'postdesc.html', context)
 
 def createpost(request):
+    profile = request.user.profile
     form = PostForm()
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.profile =profile
             post.save()
             return redirect('home')
         
